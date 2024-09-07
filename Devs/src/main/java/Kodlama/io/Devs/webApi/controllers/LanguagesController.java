@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Kodlama.io.Devs.business.abstracts.LanguageService;
-import Kodlama.io.Devs.entities.concretes.Language;
+import Kodlama.io.Devs.business.requests.language.CreateLanguageRequest;
+import Kodlama.io.Devs.business.requests.language.UpdateLanguageRequest;
+import Kodlama.io.Devs.business.responses.language.GetAllLanguagesResponse;
+import Kodlama.io.Devs.business.responses.language.GetLanguageResponse;
 
 @RestController
 @RequestMapping("/api/languages")
@@ -21,18 +24,19 @@ public class LanguagesController {
 	}
 	
 	@GetMapping("getall")
-	List<Language> getAll(){
+	List<GetAllLanguagesResponse> getAll(){
 		return languageService.getAll();
 	}
 	
 	@GetMapping("add")
-	void add(Language language) {
+	GetLanguageResponse add(CreateLanguageRequest language) {
 		try {
-			languageService.add(language);
+			return languageService.add(language);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.print(e.getMessage());
 		}
+		return null;
 	}
 	
 	@GetMapping("delete")
@@ -46,17 +50,18 @@ public class LanguagesController {
 	}
 	
 	@GetMapping("update")
-	void update(Language language) {
+	GetLanguageResponse update(int id,UpdateLanguageRequest language) {
 		try {
-			languageService.update(language);
+			return languageService.update(id,language);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.print(e.getMessage());
 		}
+		return null;
 	}
 	
 	@GetMapping("getbyid")
-	Language getById(int id) {
+	GetLanguageResponse getById(int id) {
 		try {
 			return languageService.getById(id);
 		} catch (Exception e) {

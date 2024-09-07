@@ -1,25 +1,23 @@
 package Kodlama.io.Devs.entities.concretes;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name="languages")
+@Table(name="technologies")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Language {
+public class Technology {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +26,9 @@ public class Language {
 	
 	@Column(name="name")
 	private String name;
-
-	@OneToMany(mappedBy="language", cascade=CascadeType.ALL)
-	private List<Technology> technologies;
 	
-		
+	@ManyToOne
+	@JoinColumn(name="language_id", nullable=false)
+	private Language language;
+	
 }
